@@ -1,6 +1,8 @@
 import streamlit as st
 import pickle
 import pandas as pd
+import gzip
+
 
 # load movie dictionary
 movies_dict = pickle.load(open('movie_dict.pkl','rb'))
@@ -9,7 +11,8 @@ movies_dict = pickle.load(open('movie_dict.pkl','rb'))
 movies = pd.DataFrame(movies_dict)
 
 # load similarity matrix
-similarity = pickle.load(open('similarity.pkl','rb'))
+with gzip.open("similarity.pkl.gz", "rb") as f:
+    similarity = pickle.load(f)
 
 
 def recommend(movie):
